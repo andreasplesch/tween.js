@@ -9,21 +9,31 @@ JavaScript tweening engine for easy animations, incorporating optimised Robert P
 [![CDNJS][cdnjs-image]][cdnjs-url]
 
 ```javascript
-var coords = { x: 0, y: 0 };
-var tween = new TWEEN.Tween(coords)
-	.to({ x: 100, y: 100 }, 1000)
-	.onUpdate(function() {
-		console.log(this.x, this.y);
-	})
-	.start();
+var box = document.createElement('div');
+box.style.setProperty('background-color', '#008800');
+box.style.setProperty('width', '100px');
+box.style.setProperty('height', '100px');
+document.body.appendChild(box);
 
+// Setup the animation loop.
+function animate(time) {
+    requestAnimationFrame(animate);
+    TWEEN.update(time);
+}
 requestAnimationFrame(animate);
 
-function animate(time) {
-	requestAnimationFrame(animate);
-	TWEEN.update(time);
-}
+var coords = { x: 0, y: 0 }; // Start at (0, 0)
+var tween = new TWEEN.Tween(coords) // Create a new tween that modifies 'coords'.
+        .to({ x: 300, y: 200 }, 1000) // Move to (300, 200) in 1 second.
+        .easing(TWEEN.Easing.Quadratic.Out) // Use an easing function to make the animation smooth.
+        .onUpdate(function() { // Called after tween.js updates 'coords'.
+            // Move 'box' to the position described by 'coords' with a CSS translation.
+            box.style.setProperty('transform', 'translate(' + coords.x + 'px, ' + coords.y + 'px)');
+        })
+        .start(); // Start the tween immediately.
 ```
+
+[Test it with CodePen](https://codepen.io/mikebolt/pen/zzzvZg)
 
 ## Installation
 
@@ -96,6 +106,7 @@ Then reference the library source:
 * [Contributor guide](./docs/contributor_guide.md)
 * [Tutorial](http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation/)  using tween.js with three.js
 * Also: [libtween](https://github.com/jsm174/libtween), a port of tween.js to C by [jsm174](https://github.com/jsm174)
+* Also: [es6-tween](https://github.com/tweenjs/es6-tween), a port of tween.js to ES6/Harmony by [dalisoft](https://github.com/dalisoft)
 
 ## Examples
 
@@ -280,3 +291,4 @@ Maintainers: [mikebolt](https://github.com/mikebolt), [sole](https://github.com/
 [flattr-url]: https://flattr.com/thing/45014/tween-js
 [cdnjs-image]: https://img.shields.io/cdnjs/v/tween.js.svg
 [cdnjs-url]: https://cdnjs.com/libraries/tween.js
+
