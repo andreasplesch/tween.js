@@ -48,6 +48,9 @@
 						.onUpdate( function() {
 							updateBox( target2, this );
 						})
+						.onComplete( function() {
+							target2.textContent = this.rotation;
+						})
 						.start(),
 					target3 = document.getElementById( 'target3' ),
 					tween3 = new TWEEN.Tween( target3.dataset )
