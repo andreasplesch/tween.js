@@ -16,7 +16,7 @@
 				repeat once
 			</div>
 			<div id="target2" data-rotation="0" class="box">
-				repeat five times
+				repeat three times
 			</div>
 			<div id="target3" data-rotation="0" class="box">
 				repeat forever
@@ -33,17 +33,20 @@
 			function init() {
 				var target1 = document.getElementById( 'target1' ),
 					tween1 = new TWEEN.Tween( target1.dataset )
-						.to( { rotation: 360 }, 2000 )
+						.to( { rotation: 360 }, 1000 )
 						.repeat( 1 )
 						.delay( 100 )
 						.onUpdate( function() {
 							updateBox( target1, this );
 						})
+						.onComplete( function() {
+							target1.textContent = 'Completed !';
+						})
 						.start(),
 					target2 = document.getElementById( 'target2' ),
 					tween2 = new TWEEN.Tween( target2.dataset )
-						.to( { rotation: 360 }, 2000 )
-						.repeat( 5 )
+						.to( { rotation: 360 }, 1000 )
+						.repeat( 3 )
 						.delay( 100 )
 						.onUpdate( function() {
 							updateBox( target2, this );
@@ -54,11 +57,14 @@
 						.start(),
 					target3 = document.getElementById( 'target3' ),
 					tween3 = new TWEEN.Tween( target3.dataset )
-						.to( { rotation: 360 }, 2000 )
+						.to( { rotation: 360 }, 1000 )
 						.repeat( Infinity )
 						.delay( 100 )
 						.onUpdate( function() {
 							updateBox( target3, this );
+						})
+						.onComplete( function() {
+							target3.textContent = 'Completed !';
 						})
 						.start();
 			}
